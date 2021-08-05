@@ -7,7 +7,6 @@ callable function arguments:
 
 from .generic_validators import validate
 
-
 def validate_callable(argument_names: tuple, enable_warnings=True):
     '''
     Raises an exception if any argument listed in `argument_names`
@@ -24,7 +23,7 @@ def validate_callable(argument_names: tuple, enable_warnings=True):
     '''
     return validate(
         argument_names,
-        validator=lambda input: callable(input),
+        validator=callable,
         message='Must be callable.',
         enable_warnings=enable_warnings,
         )

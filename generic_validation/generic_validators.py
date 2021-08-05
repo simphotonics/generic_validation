@@ -10,7 +10,6 @@ from warnings import warn
 from inspect import signature
 
 
-
 def validate(
         argument_names: tuple,
         validator: callable,
@@ -55,7 +54,7 @@ def validate(
     ValueError: Invalid argument: width = -2. Must be larger than zero.
     ```
     '''
-    if (isinstance(argument_names,str)):
+    if isinstance(argument_names, str):
         argument_names = (argument_names,)
 
     def _validate(func):
@@ -64,8 +63,8 @@ def validate(
             # Map args onto kwargs:
             all_argument_names = tuple(signature(func).parameters.keys())
             mapped_kwargs = kwargs.copy()
-            for index in range(0, len(args)):
-                mapped_kwargs[all_argument_names[index]] = args[index]
+            for index, arg_value in enumerate(args):
+                mapped_kwargs[all_argument_names[index]] = arg_value
 
             def _argument_validation(current, arg_name: str):
                 '''
@@ -77,32 +76,32 @@ def validate(
                 validation_error = None
                 try:
                     valid = validator(current)
-                    if (not valid):
+                    if not valid:
                         # Exception raised after validation failed.
-                        validation_error = error_type(info + ' ' + str(message))
+                        validation_error = error_type(
+                            info + ' ' + str(message))
                         raise validation_error
-                except Exception as e:
+                except Exception as error:
                     # Check if exception was raised already
-                    if (e == validation_error):
+                    if error == validation_error:
                         raise
-                    else:
-                        # Attach message and raise again.
-                        e.args = (info + ' ' + str(message), *e.args)
-                        raise
+                    # Attach message and raise again.
+                    error.args = (info + ' ' + str(message), *error.args)
+                    raise
 
             # Validate all entries if argument_names is empty.
-            if (not argument_names):
+            if not argument_names:
                 for arg_name in mapped_kwargs.keys():
                     current = mapped_kwargs[arg_name]
                     _argument_validation(current, arg_name)
 
             # Validation
             for arg_name in argument_names:
-                if (arg_name in mapped_kwargs):
+                if arg_name in mapped_kwargs:
                     current = mapped_kwargs[arg_name]
                     _argument_validation(current, arg_name)
                 else:
-                    if (enable_warnings):
+                    if enable_warnings:
                         warn(
                             'Warning: {} is not a valid argument name. '
                             'Check the decorators of {}.'.format(

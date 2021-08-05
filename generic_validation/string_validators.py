@@ -23,5 +23,5 @@ def validate_non_whitespace(argument_names: tuple, enable_warnings=True):
         argument_names,
         validator=lambda input: input.isspace(),
         message='Name contain non-whitespace characters.',
-        enable_warnings=True,
-        )
+        enable_warnings=enable_warnings,
+    )
