@@ -53,7 +53,7 @@ To validate an argument it must be listed in the tuple `argument_names`.
 
 As a convenience, the following syntax is also accepted:
 
-- To validate a *single* argument one may pass name of the argument as a string:
+- To validate a *single* argument one may pass the name of the argument as a string:
 `@validate('length', validator = lambda x: x > 0)`.
 - To a validate *all* arguments  an empty tuple may be passed as `argument_names`:
 `@validate((), validator = lambda x: x > 0)`.
