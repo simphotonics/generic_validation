@@ -6,11 +6,60 @@ requires = [
 build-backend = "setuptools.build_meta"
 
 [tool.portray]
-# repo_url = "https://github.com/simphotonics/generic_validation"
+repo_url = "https://github.com/simphotonics/generic_validation"
 extra_markdown_extensions = ["fenced_code", "pymdownx.superfences"]
-#output_dir= "doc"
 
 [tool.portray.mkdocs.theme]
-custom_dir =  '/home/dan/.local/lib/python3.8/site-packages/portray/mkdocs_templates'
-name = 'material'
-palette=  {accent= 'lightgreen', primary = 'teal'}
+custom_dir =  "/home/dan/.local/lib/python3.8/site-packages/portray/mkdocs_templates"
+name = "material"
+# palette = [
+#  {scheme = "default", accent = "lightgreen", primary = "teal", icon = "material/toggle-switch-off-outline", name = "Switch to dark mode"},
+#  {scheme = "slate", accent = "lightgreen", primary = "teal", icon = "material/toggle-switch", name = "Switch to light mode"}
+# ]
+
+
+[[tool.portray.mkdocs.theme.palette]]
+scheme = "default"
+accent = "lightgreen"
+primary = "teal"
+
+  [tool.portray.mkdocs.theme.palette.toggle]
+  icon = "material/toggle-switch-off-outline"
+  name = "Switch to dark mode"
+
+[[tool.portray.mkdocs.theme.palette]]
+scheme = "slate"
+accent = "lightgreen"
+primary = "teal"
+
+  [tool.portray.mkdocs.theme.palette.toggle]
+  icon = "material/toggle-switch"
+  name = "Switch to light mode"
+
+
+
+
+
+# [tool.portray.mkdocs.theme.palette.scheme.default]
+# toggle = {icon = "material/toggle-switch-off-outline", name = "Swich to dark mode"}
+
+# [tool.portray.mkdocs.theme.palette.scheme.slate]
+# toggle = {icon = "material/toggle-switch", name = "Swich to light mode"}
+
+# theme:
+#   palette:
+#     - scheme: default
+
+#       toggle:
+
+#         icon: material/toggle-switch-off-outline
+
+#         name: Switch to dark mode
+
+#     - scheme: slate
+
+#       toggle:
+
+#         icon: material/toggle-switch
+
+#         name: Switch to light mode
