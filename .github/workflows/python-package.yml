@@ -1,13 +1,20 @@
 # This workflow will install Python dependencies, run tests and lint with a single version of Python
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: Python application
+name: Python package
 
 on:
   push:
     branches: [ main ]
+    paths:
+    - '**.py'
   pull_request:
     branches: [ main ]
+    paths:
+    - '**.py'
+
+  # Adds a button to start a run manually.
+  workflow_dispatch:
 
 jobs:
   build:
@@ -33,4 +40,4 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest
+        make test
