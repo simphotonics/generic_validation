@@ -53,9 +53,8 @@ To validate an argument it must be listed in the tuple `argument_names`.
 
 As a convenience, the following syntax is also accepted:
 
-- If only one argument needs to be validated the
-name of the argument may be provided as a string instead of a tuple containing
-the single entry: `@validate('length', validator = lambda x: x > 0)`.
+- To validate a *single* argument one may pass name of the argument as a string:
+`@validate('length', validator = lambda x: x > 0)`.
 - To a validate *all* arguments  an empty tuple may be passed as `argument_names`:
 `@validate((), validator = lambda x: x > 0)`.
 
@@ -122,12 +121,9 @@ from generic_validation.generic_validators import validate
 def person_data(age, name):
   pass
 ```
-Calling the function `person_data` with the arguments shown below
+Calling the function with the arguments: `person_data(age = -10, name = 'Anna')`
 will *pass* validation since the argument name `aeg` specified
 in the decorator does not exist.
-``` python
-person_data(age = -10, name = 'Anna')
-```
 
 ## Nested validators
 
