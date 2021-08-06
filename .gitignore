@@ -130,3 +130,6 @@ dmypy.json
 
 # Vscode directory
 .vscode
+
+# README.md in src
+src/README.md
