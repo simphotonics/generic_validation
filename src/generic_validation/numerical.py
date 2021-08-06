@@ -5,7 +5,7 @@ numerical function arguments:
 - validate_positive
 '''
 
-from .generic_validators import validate
+from .generic import validate
 
 
 def validate_positive(argument_names: tuple, enable_warnings=True):

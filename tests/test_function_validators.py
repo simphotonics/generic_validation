@@ -1,6 +1,6 @@
 import pytest
 
-from generic_validation.function_validators import validate_callable
+from generic_validation.callable import validate_callable
 
 
 @validate_callable(('callback'))

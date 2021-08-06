@@ -5,7 +5,7 @@ callable function arguments:
 - validate_callable
 '''
 
-from .generic_validators import validate
+from .generic import validate
 
 def validate_callable(argument_names: tuple, enable_warnings=True):
     '''

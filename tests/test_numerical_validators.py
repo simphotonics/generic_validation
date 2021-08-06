@@ -1,6 +1,6 @@
 import pytest
 
-from generic_validation.numerical_validators import validate_positive
+from generic_validation.numerical import validate_positive
 
 
 @validate_positive('length')

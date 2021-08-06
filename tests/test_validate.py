@@ -1,8 +1,7 @@
 from warnings import showwarning
 import pytest
 
-from generic_validation.generic_validators import validate
-
+from generic_validation.generic import validate
 
 @validate('length', lambda x: x > 0, enable_warnings=True)
 def f_positive(length, width):
@@ -53,17 +52,17 @@ class TestNestedValidation:
     def callback(self, x):
         return x
 
-    # def test_raised_exception_pos(self):
-    #     with pytest.raises(ValueError):
-    #         g(-3, callback=self.callback)
+    def test_raised_exception_pos(self):
+        with pytest.raises(ValueError):
+            g(-3, callback=self.callback)
 
-    # def test_raised_exception_keyword(self):
-    #     with pytest.raises(ValueError):
-    #         g(3, callback='not a function')
+    def test_raised_exception_keyword(self):
+        with pytest.raises(ValueError):
+            g(3, callback='not a function')
 
-    # def test_raised_exception_incompatible_type(self):
-    #     with pytest.raises(TypeError):
-    #         g('not_a_number', callback=self.callback)
+    def test_raised_exception_incompatible_type(self):
+        with pytest.raises(TypeError):
+            g('not_a_number', callback=self.callback)
 
     def test_message(self):
         try:
