@@ -17,7 +17,7 @@ required boilerplate.
 
 To install the package [`generic_validation`][generic_validation] use the command:
 ```Console
-$ pip install -i https://test.pypi.org/simple/ generic-validation-simphotonics
+$ pip install -i https://test.pypi.org/simple/ generic-validation
 ```
 
 ## Usage
