@@ -4,8 +4,7 @@ Argument validation for Python functions using decorators.
 The package `generic_validation`provides the
 following modules:
 
-- generic: This module contains the generic function
-  [`validate`][validate].
+- generic: Module containing the generic function [`validate`][validate].
 - numerical
 - callable
 - string
