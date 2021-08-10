@@ -8,7 +8,7 @@ build-backend = "setuptools.build_meta"
 [tool.portray]
 repo_url = "https://github.com/simphotonics/generic_validation"
 extra_markdown_extensions = ["fenced_code", "pymdownx.superfences"]
-#directory = "/home/dan/WORK/PythonProjects/generic_validation/src"
+directory = "/home/dan/WORK/PythonProjects/generic_validation/src"
 #package_directory = "/home/dan/WORK/PythonProjects/generic_validation/src"
 
 [tool.portray.mkdocs.theme]
