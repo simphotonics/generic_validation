@@ -30,8 +30,8 @@ class TestValidatePositive:
         try:
             f_positive(-3, width=5)
         except ValueError as e:
-            assert 'Invalid argument at position: 0. '
-            'Value: -3. Must be positive.' in str(e)
+            assert 'Invalid argument in function ' \
+            'f_positive: length = -3. ' in str(e)
 
     def test_all(self):
         with pytest.raises(ValueError):
@@ -66,10 +66,9 @@ class TestNestedValidation:
 
     def test_message(self):
         try:
-            g(3, callback=self.callback)
+            g(-3, callback=self.callback)
         except ValueError as e:
-            assert 'Invalid argument at position: 0. '
-            'Value: -3. Must be positive.' in str(e)
+            assert 'Invalid argument in function g: length = -3. ' in str(e)
 
 
 class TestValidate:

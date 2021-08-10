@@ -21,6 +21,6 @@ class TestValidateCallable:
         try:
             f_callable(lambda x: x, callback=5)
         except ValueError as e:
-            assert 'Invalid argument in function f_callable: '
+            assert 'Invalid argument in function f_callable: ' \
             'callback = 5. Must be callable.' in str(
                 e)
