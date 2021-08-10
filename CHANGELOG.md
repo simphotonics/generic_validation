@@ -1,3 +1,8 @@
+
+## Version 0.0.7
+
+Added function `validate_in_interval` to module `generic_validation.numerical`.
+
 ## Version 0.0.6
 
 Amended setup.cfg
