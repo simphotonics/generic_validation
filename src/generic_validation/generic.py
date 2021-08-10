@@ -2,7 +2,6 @@
 Includes the following *generic* decorator functions:
 
 - validate
-- validate_replace
 
 '''
 
