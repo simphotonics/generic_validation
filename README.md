@@ -161,13 +161,16 @@ using the command:
 $ git clone https://github.com/simphotonics/generic_validation.git
 ```
 The command above will create a directory called `generic_validation`.
-Then navigate to directory `generic_validation` and use the commands:
+It is recommended to create a separate environment before proceeding.
+
+Then navigate to the directory `generic_validation` and use the commands:
 ```Console
 $ make init
 $ make test
 ```
-The first command will install [`pytest`][pytest]. The second command
-will run the unit tests located in the sub-directory `tests`.
+The first command will install [`pytest`][pytest] and the local package
+`generic_validation`. The second command
+will run the unit tests located in the directory `tests`.
 
 ## Contributing
 
