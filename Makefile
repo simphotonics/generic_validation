@@ -15,6 +15,7 @@ site:
 
 init:
 	    pip install -r requirements.txt
+			pip install -e .
 
 lint:
 			pylint -f colorized src/generic_validation
@@ -28,4 +29,4 @@ publish:
 			python3 -m twine upload --repository pypi dist/*
 
 test:
-		  cd src && python3 -m pytest -rP ../tests
+		  pytest -rP tests
