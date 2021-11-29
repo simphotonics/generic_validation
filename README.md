@@ -1,6 +1,6 @@
 # Generic Validation For Python
 [![Python](https://github.com/simphotonics/gvalidation/actions/workflows/python.yml/badge.svg)](https://github.com/simphotonics/gvalidation/actions/workflows/python.yml)
-[![docs](https://raw.githubusercontent.com/simphotonics/gvalidation/main/images/docs-badge.svg)](https://unitexpr.simphotonics.com)
+[![docs](https://raw.githubusercontent.com/simphotonics/gvalidation/main/images/docs-badge.svg)](https://gvalidation.simphotonics.com)
 
 Checking the input arguments of a function is a common task.
 It allows the software designer to stop the flow of execution if
