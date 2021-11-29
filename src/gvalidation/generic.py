@@ -1,9 +1,9 @@
-'''
+"""
 Includes the following *generic* decorator functions:
 
 - validate
 
-'''
+"""
 
 from functools import wraps
 from warnings import warn
@@ -11,12 +11,13 @@ from inspect import signature
 
 
 def validate(
-        argument_names: tuple,
-        validator: callable,
-        message: str = '',
-        error_type: type = ValueError,
-        enable_warnings=True) -> None:
-    '''
+    argument_names: tuple,
+    validator: callable,
+    message: str = "",
+    error_type: type = ValueError,
+    enable_warnings=True,
+) -> None:
+    """
     Generic validator function that raises an exception if any positional
     arguments specified by an integer in the tuple `argument_names`
     or any keyword arguments
@@ -24,7 +25,8 @@ def validate(
 
     - argument_names: A tuple containing the names of
       all arguments that need to be validated.
-    - validator: A function that must return `False` if the argument is invalid.
+    - validator: A function that must return `False` if the argument is
+      invalid.
     - message: Optional string that will be appended to the error message.
     - error_type: Optional parameter used to specify the type of error raised.
     - enable_warnings: Set to `True` to generate a warning if any entry
@@ -53,7 +55,7 @@ def validate(
     #Stacktrace will be printed ...
     ValueError: Invalid argument: width = -2. Must be larger than zero.
     ```
-    '''
+    """
     if isinstance(argument_names, str):
         argument_names = (argument_names,)
 
@@ -67,26 +69,28 @@ def validate(
                 mapped_kwargs[all_argument_names[index]] = arg_value
 
             def _argument_validation(current, arg_name: str):
-                '''
+                """
                 Calls the validator, generates info, raises exception
                 on validation failure.
-                '''
-                info = 'Invalid argument in function {}: {} = {}.'.format(
-                    func.__name__, arg_name, current)
+                """
+                info = "Invalid argument in function {}: {} = {}.".format(
+                    func.__name__, arg_name, current
+                )
                 validation_error = None
                 try:
                     valid = validator(current)
                     if not valid:
                         # Exception raised after validation failed.
                         validation_error = error_type(
-                            info + ' ' + str(message))
+                            info + " " + str(message)
+                        )
                         raise validation_error
                 except Exception as error:
                     # Check if exception was raised already
                     if error == validation_error:
                         raise
                     # Attach message and raise again.
-                    error.args = (info + ' ' + str(message), *error.args)
+                    error.args = (info + " " + str(message), *error.args)
                     raise
 
             # Validate all entries if argument_names is empty.
@@ -103,10 +107,14 @@ def validate(
                 else:
                     if enable_warnings:
                         warn(
-                            'Warning: {} is not a valid argument name. '
-                            'Check the decorators of {}.'.format(
-                                arg_name, func.__name__))
+                            "Warning: {} is not a valid argument name. "
+                            "Check the decorators of {}.".format(
+                                arg_name, func.__name__
+                            )
+                        )
 
             return func(*args, **kwargs)
+
         return __validate
+
     return _validate
