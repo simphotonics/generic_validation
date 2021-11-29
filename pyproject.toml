@@ -5,10 +5,13 @@ requires = [
 ]
 build-backend = "setuptools.build_meta"
 
+[tool.black]
+line-length = 79
+
 [tool.portray]
-repo_url = "https://github.com/simphotonics/generic_validation"
+repo_url = "https://github.com/simphotonics/gvalidation"
 extra_markdown_extensions = ["fenced_code", "pymdownx.superfences"]
-directory = "/home/dan/WORK/PythonProjects/generic_validation/src"
+directory = "/home/dan/WORK/PythonProjects/gvalidation/src"
 #package_directory = "/home/dan/WORK/PythonProjects/generic_validation/src"
 
 [tool.portray.mkdocs.theme]

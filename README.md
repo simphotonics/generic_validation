@@ -1,23 +1,23 @@
 # Generic Validation For Python
-[![Python](https://github.com/simphotonics/generic_validation/actions/workflows/python.yml/badge.svg)](https://github.com/simphotonics/generic_validation/actions/workflows/python.yml)
-[![Python](https://simphotonics.com/images/docs-badge.svg)](https://generic-validation.simphotonics.com)
-
+[![Python](https://github.com/simphotonics/gvalidation/actions/workflows/python.yml/badge.svg)](https://github.com/simphotonics/gvalidation/actions/workflows/python.yml)
+[![docs](https://raw.githubusercontent.com/simphotonics/gvalidation/main/images/docs-badge.svg)](https://unitexpr.simphotonics.com)
 
 Checking the input arguments of a function is a common task.
 It allows the software designer to stop the flow of execution if
 an error occured and to display information detailing the error.
 
 Python provides *decorators* that can be used to add extra
-functionality to a function. The package [`generic_validation`][generic_validation]
+functionality to a function. The package [`gvalidation`][gvalidation]
 provides the function [`validate`][validate] that
-can be used to easily create argument validating decorators while avoiding most of the
+can be used to easily create argument validating decorators
+while avoiding most of the
 required boilerplate.
 
 ## Installation
 
-To install the package [`generic_validation`][generic_validation] use the command:
+To install the package [`gvalidation`][gvalidation] use the command:
 ```Console
-$ pip install generic-validation
+$ pip install gvalidation
 ```
 
 ## Usage
@@ -25,7 +25,7 @@ $ pip install generic-validation
 This section demonstrates how to use the function [`validate`][validate]
 to define validation decorators.
 
-### Generic Validation Decorators
+### 1. Generic Validation Decorators
 
 The example below shows how to define a decorator that will validate
 the arguments of the decorated function and
@@ -41,7 +41,7 @@ can pass any function with the required signature as a validator.
 
 
 ``` python
-from generic_validation.generic_validators import validate
+from gvalidation.generic_validators import validate
 
 @validate(argument_names = (),
              validator = lambda x: x > 0,
@@ -74,7 +74,7 @@ The argument `message` passed to the decorator is appended to the
 message attached to the exception. In the example above `message` was:
 'Dimensions must be positive'.
 
-### Concrete Validation Decorators
+### 2. Concrete Validation Decorators
 
 In the example above, we defined a validating decorator on the spot
 using the generic method [`validate`][validate].
@@ -108,13 +108,13 @@ Ready made validation decorators can be found in the modules:
 - `numerical_validators`
 - `string_validators`
 
-### Disabling Warnings
+### 3. Disabling Warnings
 
 Any invalid argument name listed in the tuple `argument_names`
 will be silently ignored if `enable_warnings` is explicitly set to `False`.
 Consider the function below:
 ``` python
-from generic_validation.generic_validators import validate
+from gvalidation.generic_validators import validate
 
 @validate(argument_names = ('aeg',),
              validator = lambda x: x > 0,
@@ -128,7 +128,7 @@ Calling the function with the arguments: `person_data(age = -10, name = 'Anna')`
 will *pass* validation since the argument name `aeg` specified
 in the decorator does not exist.
 
-## Nested validators
+## Nested Validators
 
 Several decorators performing validation
 may be applied to the same function.
@@ -155,21 +155,21 @@ was used. For more details check out the implementation of [`validate`][validate
 ## Testing
 
 To run the tests clone the project source code available at
-[`generic_validation`](https://github.com/simphotonics/generic_validation)
+[`gvalidation`](https://github.com/simphotonics/gvalidation)
 using the command:
 ```
-$ git clone https://github.com/simphotonics/generic_validation.git
+$ git clone https://github.com/simphotonics/gvalidation.git
 ```
-The command above will create a directory called `generic_validation`.
+The command above will create a directory called `gvalidation`.
 It is recommended to create a separate environment before proceeding.
 
-Then navigate to the directory `generic_validation` and use the commands:
+Then navigate to the directory `gvalidation` and use the commands:
 ```Console
 $ make init
 $ make test
 ```
 The first command will install [`pytest`][pytest] and the local package
-`generic_validation`. The second command
+`gvalidation`. The second command
 will run the unit tests located in the directory `tests`.
 
 ## Contributing
@@ -195,10 +195,10 @@ The following steps should be considered when creating a pull request:
 Please file feature requests and bugs at the [issue tracker].
 
 
-[issue tracker]: https://github.com/simphotonics/generic_validation/issues
+[issue tracker]: https://github.com/simphotonics/gvalidation/issues
 
-[generic_validation]: https://github.com/simphotonics/generic_validation
+[gvalidation]: https://github.com/simphotonics/gvalidation
 
 [pytest]: https://pypi.org/project/pytest/
 
-[validate]: https://generic-validation.simphotonics.com/reference/generic_validation/generic_validators/#validate
+[validate]: https://gvalidation.simphotonics.com/reference/gvalidation/generic_validators/#validate
