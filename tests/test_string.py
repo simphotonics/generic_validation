@@ -1,6 +1,6 @@
 import pytest
 
-from generic_validation.string import validate_non_whitespace
+from gvalidation import validate_non_whitespace
 
 
 @validate_non_whitespace(('id'))

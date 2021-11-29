@@ -1,6 +1,6 @@
 import pytest
 
-from generic_validation.numerical import validate_in_interval, validate_positive
+from gvalidation import validate_in_interval, validate_positive
 
 
 @validate_positive('length')

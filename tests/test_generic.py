@@ -1,7 +1,7 @@
 from warnings import showwarning
 import pytest
 
-from generic_validation.generic import validate
+from gvalidation import validate
 
 @validate('length', lambda x: x > 0, enable_warnings=True)
 def f_positive(length, width):
