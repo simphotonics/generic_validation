@@ -210,4 +210,4 @@ Please file feature requests and bugs at the [issue tracker].
 
 [pytest]: https://pypi.org/project/pytest/
 
-[validate]: https://gvalidate.simphotonics.com/reference/gvalidate/generic_validators/#validate
+[validate]: https://gvalidate.simphotonics.com/reference/gvalidate/generic/#validate
