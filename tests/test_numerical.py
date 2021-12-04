@@ -1,6 +1,6 @@
 import pytest
 
-from gvalidation import validate_in_interval, validate_positive
+from gvalidate import validate_in_interval, validate_positive
 
 
 @validate_positive("length")
@@ -8,7 +8,7 @@ def f_positive(length, width):
     pass
 
 
-@validate_positive(())
+@validate_positive()
 def f_positive_check_all(length, width):
     pass
 
@@ -29,7 +29,7 @@ class TestValidatePositive:
             f_positive_nested(3, width=-5)
 
     def test_raised_exception_incompatible_type(self):
-        with pytest.raises(TypeError):
+        with pytest.raises(ValueError):
             f_positive("not_a_number", width="a")
 
     def test_message(self):
@@ -65,7 +65,7 @@ class TestValidateInInterval:
             f_in_interval(width=5)
 
     def test_raised_exception_incompatible_type(self):
-        with pytest.raises(TypeError):
+        with pytest.raises(ValueError):
             f_in_interval("not_a_number")
 
     def test_message(self):
@@ -74,7 +74,7 @@ class TestValidateInInterval:
         except ValueError as e:
             assert (
                 "f_in_interval: width = 5. "
-                "Input x must satisfy: 10 <= x <= 20." in str(e)
+                "Input must satisfy: 10 <= 'input' <= 20." in str(e)
             )
 
     def test_message_inverted_boundaries(self):
@@ -82,6 +82,6 @@ class TestValidateInInterval:
             g_in_interval(number=-25)
         except ValueError as e:
             assert (
-                "number = -25. Input x must satisfy: -20 <= x < 10."
+                "number = -25. Input must satisfy: -20 <= 'input' < 10."
                 "" in str(e)
             )

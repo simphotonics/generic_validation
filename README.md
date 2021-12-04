@@ -1,13 +1,13 @@
 # Generic Validation For Python
-[![Python](https://github.com/simphotonics/gvalidation/actions/workflows/python.yml/badge.svg)](https://github.com/simphotonics/gvalidation/actions/workflows/python.yml)
-[![docs](https://raw.githubusercontent.com/simphotonics/gvalidation/main/images/docs-badge.svg)](https://gvalidation.simphotonics.com)
+[![Python](https://github.com/simphotonics/gvalidate/actions/workflows/python.yml/badge.svg)](https://github.com/simphotonics/gvalidate/actions/workflows/python.yml)
+[![docs](https://raw.githubusercontent.com/simphotonics/gvalidate/main/images/docs-badge.svg)](https://gvalidate.simphotonics.com)
 
 Checking the input arguments of a function is a common task.
 It allows the software designer to stop the flow of execution if
 an error occured and to display information detailing the error.
 
 Python provides *decorators* that can be used to add extra
-functionality to a function. The package [`gvalidation`][gvalidation]
+functionality to a function. The package [`gvalidate`][gvalidate]
 provides the function [`validate`][validate] that
 can be used to easily create argument validating decorators
 while avoiding most of the
@@ -15,9 +15,9 @@ required boilerplate.
 
 ## Installation
 
-To install the package [`gvalidation`][gvalidation] use the command:
+To install the package [`gvalidate`][gvalidate] use the command:
 ```Console
-$ pip install gvalidation
+$ pip install gvalidate
 ```
 
 ## Usage
@@ -38,28 +38,38 @@ If it returns `False` validation fails.
 The function [`validate`][validate] is generic in the sense that we
 can pass any function with the required signature as a validator.
 
-
-
+In the example shown below all arguments of the function `box_dimensions`
+are validated using a lambda function.
 ``` python
-from gvalidation.generic_validators import validate
+from gvalidate.generic_validators import validate
 
-@validate(argument_names = (),
-             validator = lambda x: x > 0,
-             message='Dimensions must be positive.' # Optional, default: ''
-             error_type=ValueError,               # Optional, default: ValueError
-             enable_warnings=True                 # Optional, default: True
-             )
+@validate(validator = lambda x: x > 0,
+          message='Dimensions must be positive.' # Optional, default: ''
+          error_type=ValueError,                 # Optional, default: ValueError
+          enable_warnings=True,                  # Optional, default: True
+          )
 def box_dimensions(length, height, width):
   pass
 ```
-To validate an argument it must be listed in the tuple `argument_names`.
 
-As a convenience, the following syntax is also accepted:
+To validate only `certain` function arguments these must
+be passed as a tuple via the parameter `argument_names`.
+In the example below only the arguments `length` and `height` are
+validated.
+``` python
+from gvalidate.generic_validators import validate
 
-- To validate a *single* argument one may pass the name of the argument as a string:
-`@validate('length', validator = lambda x: x > 0)`.
-- To a validate *all* arguments  an empty tuple may be passed as `argument_names`:
-`@validate((), validator = lambda x: x > 0)`.
+@validate(validator = lambda x: x > 0,
+          argument_names = ('length', 'height'),
+          message='Dimensions must be positive.' # Optional, default: ''
+          error_type=ValueError,                 # Optional, default: ValueError
+          enable_warnings=True,                  # Optional, default: True
+          )
+def box_dimensions_2(length, height, width):
+  pass
+```
+Note: To validate a *single* argument one a string containing the argument name may
+specified via the parameter `argument_names`.
 
 Calling the function `box_dimensions` with negative arguments
 causes an exception to be raised:
@@ -78,25 +88,24 @@ message attached to the exception. In the example above `message` was:
 
 In the example above, we defined a validating decorator on the spot
 using the generic method [`validate`][validate].
-To reuse a validating decorator that uses a specific validator
-one may define a separate function.
+To reuse a validating decorator one may define a separate function.
 
 In the example below the decorator `validate_callable` checks if the
 specified arguments are callable.
 ```Python
-def validate_callable(argument_names: tuple, enable_warnings=True):
+def validate_callable(argument_names: tuple = (), enable_warnings=True):
     '''
     Raises an exception if any argument in `argument_names` is not callable.
     '''
     return validate(
-        argument_names,
         validator=lambda input: callable(input),
+        argument_names = (),
         message='Must be callable.',
         enable_warnings=enable_warnings,
         )
 
 # Using the decorator defined above.
-@validate_callable(('callback',))
+@validate_callable('callback')
 def function_with_a_callback(id: int, callback: callable):
     pass
 
@@ -114,7 +123,7 @@ Any invalid argument name listed in the tuple `argument_names`
 will be silently ignored if `enable_warnings` is explicitly set to `False`.
 Consider the function below:
 ``` python
-from gvalidation.generic_validators import validate
+from gvalidate.generic_validators import validate
 
 @validate(argument_names = ('aeg',),
              validator = lambda x: x > 0,
@@ -155,27 +164,27 @@ was used. For more details check out the implementation of [`validate`][validate
 ## Testing
 
 To run the tests clone the project source code available at
-[`gvalidation`](https://github.com/simphotonics/gvalidation)
+[`gvalidate`](https://github.com/simphotonics/gvalidate)
 using the command:
 ```
-$ git clone https://github.com/simphotonics/gvalidation.git
+$ git clone https://github.com/simphotonics/gvalidate.git
 ```
-The command above will create a directory called `gvalidation`.
+The command above will create a directory called `gvalidate`.
 It is recommended to create a separate environment before proceeding.
 
-Then navigate to the directory `gvalidation` and use the commands:
+Then navigate to the directory `gvalidate` and use the commands:
 ```Console
 $ make init
 $ make test
 ```
 The first command will install [`pytest`][pytest] and the local package
-`gvalidation`. The second command
+`gvalidate`. The second command
 will run the unit tests located in the directory `tests`.
 
 ## Contributing
 
 Contributions are welcome. To add validators that are useful to you
-or other users please create a pull request or equest to be added
+or other users please create a pull request or request to be added
 as a collaborator.
 
 The following steps should be considered when creating a pull request:
@@ -195,10 +204,10 @@ The following steps should be considered when creating a pull request:
 Please file feature requests and bugs at the [issue tracker].
 
 
-[issue tracker]: https://github.com/simphotonics/gvalidation/issues
+[issue tracker]: https://github.com/simphotonics/gvalidate/issues
 
-[gvalidation]: https://github.com/simphotonics/gvalidation
+[gvalidate]: https://github.com/simphotonics/gvalidate
 
 [pytest]: https://pypi.org/project/pytest/
 
-[validate]: https://gvalidation.simphotonics.com/reference/gvalidation/generic_validators/#validate
+[validate]: https://gvalidate.simphotonics.com/reference/gvalidate/generic_validators/#validate

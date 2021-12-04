@@ -8,10 +8,12 @@ callable function arguments:
 from .generic import validate
 
 
-def validate_callable(argument_names: tuple, enable_warnings=True):
+def validate_callable(argument_names: tuple = (), enable_warnings=True):
     """
     Raises an exception if any argument listed in `argument_names`
     is not callable.
+
+    Note: By default all function arguments are validate.
 
     ---
     Usage: In the example below the decorator checks if the argument
@@ -23,8 +25,8 @@ def validate_callable(argument_names: tuple, enable_warnings=True):
     ```
     """
     return validate(
-        argument_names,
         validator=callable,
+        argument_names=argument_names,
         message="Must be callable.",
         enable_warnings=enable_warnings,
     )

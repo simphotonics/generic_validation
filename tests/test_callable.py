@@ -1,6 +1,6 @@
 import pytest
 
-from gvalidation import validate_callable
+from gvalidate import validate_callable
 
 
 @validate_callable(("callback"))
@@ -23,5 +23,6 @@ class TestValidateCallable:
         except ValueError as e:
             assert (
                 "Invalid argument in function f_callable: "
-                "callback = 5. Must be callable." in str(e)
+                + "callback = 5. Must be callable."
+                in str(e)
             )

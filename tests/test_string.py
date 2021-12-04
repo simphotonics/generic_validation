@@ -1,6 +1,6 @@
 import pytest
 
-from gvalidation import validate_non_whitespace
+from gvalidate import validate_non_whitespace
 
 
 @validate_non_whitespace(("id"))
@@ -23,7 +23,7 @@ class TestValidatePositive:
             f_non_whitespace("one ", name="\n")
 
     def test_raised_exception_incompatible_type(self):
-        with pytest.raises(AttributeError):
+        with pytest.raises(ValueError):
             f_non_whitespace(0, name="Marc")
 
     def test_message(self):

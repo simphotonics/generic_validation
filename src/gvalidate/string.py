@@ -7,7 +7,7 @@ Provides the following decorators for validating arguments of type `string`:
 from .generic import validate
 
 
-def validate_non_whitespace(argument_names: tuple, enable_warnings=True):
+def validate_non_whitespace(argument_names: tuple = (), enable_warnings=True):
     """
     Raises an exception if any string argument listed in `argument_names`
     contains only whitespace.
@@ -22,8 +22,8 @@ def validate_non_whitespace(argument_names: tuple, enable_warnings=True):
     ```
     """
     return validate(
+        lambda input: input.isspace(),
         argument_names,
-        validator=lambda input: input.isspace(),
-        message="Name contain non-whitespace characters.",
+        message="Input contains non-whitespace characters.",
         enable_warnings=enable_warnings,
     )

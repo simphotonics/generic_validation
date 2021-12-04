@@ -1,5 +1,5 @@
 
-PROJECT_NAME=gvalidation
+PROJECT_NAME=gvalidate
 
 .PHONY: clean
 clean:
@@ -22,10 +22,12 @@ site:
 			portray as_html
 
 init:
+			if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+			if [ -f requirements_dev.txt ]; then pip install -r requirements_dev.txt; fi
 	    pip install -e .
 
 lint:
-			pylint -f colorized src/$(PROJECT_NAME)
+			flake8 src/$(PROJECT_NAME)
 
 publish-test:
 			pip install --upgrade twine

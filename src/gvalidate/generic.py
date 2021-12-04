@@ -6,13 +6,14 @@ Includes the following *generic* decorator functions:
 """
 
 from functools import wraps
-from warnings import warn
 from inspect import signature
+from typing import Tuple, Union
+from warnings import warn
 
 
 def validate(
-    argument_names: tuple,
     validator: callable,
+    argument_names: Union[Tuple[str], str] = (),
     message: str = "",
     error_type: type = ValueError,
     enable_warnings=True,
@@ -23,10 +24,10 @@ def validate(
     or any keyword arguments
     specified by a string are not valid.
 
-    - argument_names: A tuple containing the names of
-      all arguments that need to be validated.
     - validator: A function that must return `False` if the argument is
       invalid.
+    - argument_names: A tuple containing the names of
+      all arguments that need to be validated or a string.
     - message: Optional string that will be appended to the error message.
     - error_type: Optional parameter used to specify the type of error raised.
     - enable_warnings: Set to `True` to generate a warning if any entry
@@ -35,18 +36,20 @@ def validate(
     Note: Skips arguments that are absent (since an error will be
     thrown implicitly when the decorated function is called.)
 
-    It is not guaranteed that the specified error type will be raised if
-    the user supplied validator function raises an exception. In that case,
-    validation will fail and relevant information is appended to the error
-    message before raising the error again.
+    If the user supplied validator function raises an exception,
+    validation will fail and relevant information is appended
+    to the error message before raising the error using a `from` construct.
 
     ---
     Usage: In the example below the decorator checks if the argument
     `width` is larger than zero.
 
     ``` python
-    @validate(('width',), message='Must be larger than zero.',
-          validator=lambda input: input > 0)
+    @validate(
+        validator=lambda input: input > 0,
+        argument_names = ('width',),
+        message='Must be larger than zero.',
+    )
     def my_func(length, width):
     pass
 
@@ -73,12 +76,13 @@ def validate(
                 Calls the validator, generates info, raises exception
                 on validation failure.
                 """
-                info = "Invalid argument in function {}: {} = {}.".format(
-                    func.__name__, arg_name, current
-                )
                 validation_error = None
                 try:
                     valid = validator(current)
+                    info = (
+                        f"Invalid argument in function {func.__name__}: "
+                        + f"{arg_name} = {current}."
+                    )
                     if not valid:
                         # Exception raised after validation failed.
                         validation_error = error_type(
@@ -90,8 +94,12 @@ def validate(
                     if error == validation_error:
                         raise
                     # Attach message and raise again.
+                    info = (
+                        "Exception raised while validating argument in "
+                        + f"{func.__name__}: {arg_name} = {current}."
+                    )
                     error.args = (info + " " + str(message), *error.args)
-                    raise
+                    raise error_type from error
 
             # Validate all entries if argument_names is empty.
             if not argument_names:

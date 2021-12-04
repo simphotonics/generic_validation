@@ -10,7 +10,7 @@ following modules:
 - string
 
 [validate]:
-https://gvalidation.simphotonics.com/reference/gvalidation/validators/#validate
+https://gvalidate.simphotonics.com/reference/gvalidate/validators/#validate
 
 """
 from .generic import validate

@@ -9,9 +9,9 @@ build-backend = "setuptools.build_meta"
 line-length = 79
 
 [tool.portray]
-repo_url = "https://github.com/simphotonics/gvalidation"
+repo_url = "https://github.com/simphotonics/gvalidate"
 extra_markdown_extensions = ["fenced_code", "pymdownx.superfences"]
-directory = "/home/dan/WORK/PythonProjects/gvalidation/src"
+directory = "/home/dan/WORK/PythonProjects/gvalidate/src"
 #package_directory = "/home/dan/WORK/PythonProjects/generic_validation/src"
 
 [tool.portray.mkdocs.theme]

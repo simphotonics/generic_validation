@@ -1,14 +1,14 @@
 import pytest
 
-from gvalidation import validate
+from gvalidate import validate
 
 
-@validate("length", lambda x: x > 0, enable_warnings=True)
+@validate(lambda x: x > 0, "length", enable_warnings=True)
 def f_positive(length, width):
     pass
 
 
-@validate((), lambda x: x > 0, enable_warnings=True)
+@validate(lambda x: x > 0, enable_warnings=True)
 def f_positive_check_all(length, width):
     pass
 
@@ -23,7 +23,7 @@ class TestValidatePositive:
             f_positive_check_all(3, width=-5)
 
     def test_raised_exception_incompatible_type(self):
-        with pytest.raises(TypeError):
+        with pytest.raises(ValueError):
             f_positive("not_a_number", width="a")
 
     def test_message(self):
@@ -40,8 +40,8 @@ class TestValidatePositive:
             f_positive_check_all(5, width=-3)
 
 
-@validate(("length",), lambda x: x > 0, enable_warnings=True)
-@validate(("callback",), lambda func: callable(func), enable_warnings=True)
+@validate(lambda x: x > 0, 'length', enable_warnings=True)
+@validate(lambda func: callable(func), 'callback', enable_warnings=True)
 def g(length, callback):
     """
     Used to test nested validation decorators.
@@ -62,7 +62,7 @@ class TestNestedValidation:
             g(3, callback="not a function")
 
     def test_raised_exception_incompatible_type(self):
-        with pytest.raises(TypeError):
+        with pytest.raises(ValueError):
             g("not_a_number", callback=self.callback)
 
     def test_message(self):
@@ -74,8 +74,8 @@ class TestNestedValidation:
 
 class TestValidate:
     @validate(
-        ("length", "width"),
         validator=lambda x: False,
+        argument_names = ("length", "width"),
         error_type=TypeError,
         message="__Appended to exception message__",
         enable_warnings=True,

@@ -9,7 +9,7 @@ numerical function arguments:
 from .generic import validate
 
 
-def validate_positive(argument_names: tuple, enable_warnings=True):
+def validate_positive(argument_names: tuple = (), enable_warnings=True):
     """
     Raises an exception if any argument listed in `argument_names`
     is not positive.
@@ -24,18 +24,17 @@ def validate_positive(argument_names: tuple, enable_warnings=True):
     ```
     """
     return validate(
+        lambda input: input > 0,
         argument_names,
-        validator=lambda input: input > 0,
         message="Must be positive.",
         enable_warnings=enable_warnings,
     )
 
 
-# pylint: disable-msg=too-many-arguments
 def validate_in_interval(
-    argument_names: tuple,
-    left,
-    right,
+    argument_names: tuple = (),
+    left=0.0,
+    right=1.0,
     left_inclusive=True,
     right_inclusive=True,
     enable_warnings=True,
@@ -79,12 +78,9 @@ def validate_in_interval(
         return False
 
     return validate(
+        validator,
         argument_names,
-        validator=validator,
-        message="Input x must satisfy: "
-        "{} {} x {} {}.".format(left, left_operator, right_operator, right),
+        message=f"Input must satisfy: {left} {left_operator} "
+        + f"'input' {right_operator} {right}.",
         enable_warnings=enable_warnings,
     )
-
-
-# pylint: enable-msg=too-many-arguments
